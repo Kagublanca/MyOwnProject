@@ -5,6 +5,9 @@ import heroLibrary from "../../libs";
 
 function Shop(){
     const [state, setState] = useState([]);
+    const [coin, setCoins] = useState(10);
+    const [squad, setSquad] = useState([]);
+
 
     function getRandomHero(){
         const randomNumber = Math.floor(Math.random() * 2);
@@ -13,20 +16,36 @@ function Shop(){
     }
 
     function setShop(){
-        setState([getRandomHero(), getRandomHero(), getRandomHero()])
-        console.log(state)
+        if(coin >= 1){
+            setCoins(coin - 1);
+        return setState([getRandomHero(), getRandomHero(), getRandomHero()])
+        }
+        return;
+    }
+
+        function buyHero(index){
+            if(coin >= 3){
+                setCoins(coin - 3)
+                setSquad([...squad, state[index]]);
+                return setState([...state.slice(0, index), ...state.slice(index + 1)])
+            }
+            return;
         }
 
-        function clickHero(){
-            console.log("HELLO!!!!!")
-        }
 
     return(
         <div>
+            <h1>Your gold: {coin}</h1>
             {state.map((e, index) => {
-                return <ShopItem heroImage={state[index].heroImage} heroAttack={state[index].heroAttack} heroHealth={state[index].heroHealth} onClick={clickHero} />
-            })}
-        <button onClick={setShop}>Re-Roll</button>
+                return <div>
+                <ShopItem heroImage={state[index].heroImage} heroAttack={state[index].heroAttack} heroHealth={state[index].heroHealth} key={index}/>
+
+                <button onClick={()=>{
+                    buyHero(index)
+                }}>Buy! (£3)</button>
+                </div>
+          })}
+        <button onClick={setShop}>Re-Roll (£1)</button>
         </div>
     )
 }

@@ -1,5 +1,9 @@
+import './index.css';
+
+
 function Header(){
-    return(<h1>This is a test!</h1>
+    return(
+    <h1 className="header">Super Auto Heroes!</h1>
     )
 }
 
