@@ -1,38 +1,7 @@
 import ShopItem from "../ShopItem"
-import {useState} from "react";
-import heroLibrary from "../../libs";
 
 
-function Shop(){
-    const [state, setState] = useState([]);
-    const [coin, setCoins] = useState(10);
-    const [squad, setSquad] = useState([]);
-
-
-    function getRandomHero(){
-        const randomNumber = Math.floor(Math.random() * 2);
-        const randomHero = heroLibrary[randomNumber];
-        return randomHero;
-    }
-
-    function setShop(){
-        if(coin >= 1){
-            setCoins(coin - 1);
-        return setState([getRandomHero(), getRandomHero(), getRandomHero()])
-        }
-        return;
-    }
-
-        function buyHero(index){
-            if(coin >= 3){
-                setCoins(coin - 3)
-                setSquad([...squad, state[index]]);
-                return setState([...state.slice(0, index), ...state.slice(index + 1)])
-            }
-            return;
-        }
-
-
+function Shop({state, coin, buyHero, setShop}){
     return(
         <div>
             <h1>Your gold: {coin}</h1>
